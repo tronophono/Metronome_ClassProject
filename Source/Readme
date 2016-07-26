@@ -1,1 +1,10 @@
 This folder will contain all the source code that we use.
+
+
+Included the all the code for the project
+
+~!Some Code you havnt seen before~!---------------------------------------------------------|
+Buzzer.h/.c - Controlls the buzzer's pitch with a delay, dont need to change anything on it.|
+main.c - contains most of the code                                                          |
+--------------------------------------------------------------------------------------------|
+
