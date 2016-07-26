@@ -8,3 +8,18 @@ Buzzer.h/.c - Controlls the buzzer's pitch with a delay, dont need to change any
 main.c - contains most of the code                                                          |
 --------------------------------------------------------------------------------------------|
 
+-Added the rest from the project folder so you can import it as a project if you want
+Otherwise just take the .c and .h files to you project folder and build it.
+
+
+
+
+
+
+
+
+Compiled with:
+
+Code Composer Studio 
+
+ Version: 6.1.3.00033 
