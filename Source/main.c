@@ -133,10 +133,7 @@ int main(void) {
 	//Displays current settings and status
 	while (1)
 	{
-		switch(buzzer){
-		case 0: {status="OFF";break;}
-		case 2: {status="ON-SB";break;}
-		case 1: {status="ON-TS";break;}
+		
 		default:{break;}
 		}
 		_enable_interrupts();
@@ -299,7 +296,7 @@ __interrupt void ReceiveInterrupt(void)
 		empty02 = isItEmpty(Segment3+1,byte);
 		empty03 = isItEmpty(Segment3+2,byte);
 		empty04 = isItEmpty(Segment3+3,byte);
-		if ((empty01 && empty02 && empty03 && empty04) == false)
+		if ((empty01 && empty02 && empty03 && empty04) == false)//checks if a profile1 is saved, if not erase and save.
 		{
 			flashErase(Segment3);
 			s = 'E';
@@ -320,7 +317,7 @@ __interrupt void ReceiveInterrupt(void)
 	}
 	case '*':
 	{
-		empty01 = isItEmpty(Segment4,byte);
+		empty01 = isItEmpty(Segment4,byte);	//checks if a profile2 is saved, if not erase and save. Save send 'S'
 		empty02 = isItEmpty(Segment4+1,byte);
 		empty03 = isItEmpty(Segment4+2,byte);
 		empty04 = isItEmpty(Segment4+3,byte);
@@ -349,7 +346,7 @@ __interrupt void ReceiveInterrupt(void)
 		empty02 = isItEmpty(Segment5+1,byte);
 		empty03 = isItEmpty(Segment5+2,byte);
 		empty04 = isItEmpty(Segment5+3,byte);
-		if ((empty01 && empty02 && empty03 && empty04) == false)
+		if ((empty01 && empty02 && empty03 && empty04) == false)	//checks if a profile2 is saved, if not erase and save.
 		{
 			flashErase(Segment5);
 			s = 'E';
@@ -371,7 +368,7 @@ __interrupt void ReceiveInterrupt(void)
 		empty02 = isItEmpty(Segment3+1,byte);
 		empty03 = isItEmpty(Segment3+2,byte);
 		empty04 = isItEmpty(Segment3+3,byte);
-		if ((empty01 && empty02 && empty03 && empty04) == false)
+		if ((empty01 && empty02 && empty03 && empty04) == false)	//If we have a saved profile, load it up.
 		{
 			flashRead(&z,Segment3,byte);
 			flashRead(&NPM,Segment3+1,byte);
@@ -388,7 +385,7 @@ __interrupt void ReceiveInterrupt(void)
 		empty02 = isItEmpty(Segment4+1,byte);
 		empty03 = isItEmpty(Segment4+2,byte);
 		empty04 = isItEmpty(Segment4+3,byte);
-		if ((empty01 && empty02 && empty03 && empty04) == false)
+		if ((empty01 && empty02 && empty03 && empty04) == false) //If we have a saved profile, load it up.
 		{
 			flashRead(&z,Segment4,byte);
 			flashRead(&NPM,Segment4+1,byte);
@@ -405,7 +402,7 @@ __interrupt void ReceiveInterrupt(void)
 		empty02 = isItEmpty(Segment5+1,byte);
 		empty03 = isItEmpty(Segment5+2,byte);
 		empty04 = isItEmpty(Segment5+3,byte);
-		if ((empty01 && empty02 && empty03 && empty04) == false)
+		if ((empty01 && empty02 && empty03 && empty04) == false) //If we have a saved profile, load it up.
 		{
 			flashRead(&z,Segment5,byte);
 			flashRead(&NPM,Segment5+1,byte);
@@ -425,14 +422,21 @@ __interrupt void ReceiveInterrupt(void)
 	lcdSetText("BZ:",8,0);
 	lcdSetText("TS:",0,1);
 	lcdSetInt(BPM_Char[z],4,0);
-
+	
 	switch(buzzer){
 	case 0: {status="OFF";break;}
 	case 2: {status="ON-SB";break;}
 	case 1: {status="ON-TS";break;}
 	default:{break;}
 	}
+	
+	switch(buzzer){	//Changes buzzer status
+	case 0: {status="OFF";break;}
+	case 2: {status="ON-SB";break;}
+	case 1: {status="ON-TS";break;}
+	}
 	lcdSetText(status,11,0);
+	
 	if (buzzer == 1)
 	{
 		lcdSetText(timesig[TS],3,1);
